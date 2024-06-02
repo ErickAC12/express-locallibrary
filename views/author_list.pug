@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  h1= title
+
+  if author_list.length
+    ul
+      each author in author_list
+        li
+          if author.date_of_birth_formatted != '' && author.date_of_death_formatted != ''
+            a(href=author.url) #{author.name}
+            |   (#{author.lifespan})
+          else if author.date_of_birth_formatted == '' && author.date_of_death_formatted != ''
+            a(href=author.url) #{author.name}
+            |   (Unknown - #{author.date_of_death_formatted})
+          else if author.date_of_birth_formatted != '' && author.date_of_death_formatted == ''
+            a(href=author.url) #{author.name}
+            |   (#{author.date_of_birth_formatted} - )
+          else 
+            a(href=author.url) #{author.name}
+  else
+    p There are no authors.
